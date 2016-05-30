@@ -93,16 +93,11 @@ var trackVisibility = function trackVisibility(component) {
  * into a markdeep/markdown rendered section
 */
 
-var getMarkdeep = function getMarkdeep() {
-    global.markdeepOptions = { mode: 'script' };
-    require('./markdeep');
-    var markdeep = global.markdeep;
-    return function (content) {
-        return markdeep.format(content);
-    };
-};
+var markdown = function markdown(content) {
+    var markdownToHtml = arguments.length <= 1 || arguments[1] === undefined ? function (c) {
+        return global.markdeep.format(c);
+    } : arguments[1];
 
-var markdown = function markdown(content, markdownToHtml) {
     var config = function config(element, init) {
         element.innerHTML = markdownToHtml(content);
     };
@@ -218,17 +213,18 @@ var hashrouter = function hashrouter() {
  * page component that returns an entire html component
  */
 var page = function page(router, title) {
-    var css = arguments.length <= 2 || arguments[2] === undefined ? '/styles.css' : arguments[2];
+    var css = arguments.length <= 2 || arguments[2] === undefined ? '/style.css' : arguments[2];
     var googleAnalyticsId = arguments[3];
-    return [head.head(head.theme(), head.mobile_metas(title), m('link', { rel: 'stylesheet', href: css }), googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)), m('body', router)];
+    return [head.head(head.theme(), head.mobile_metas(title), m('link', { type: 'text/css', rel: 'stylesheet', href: css }), googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)), m('body', router)];
 };
 
 /**
  * mount the entire page() component to the DOM
  */
-var app = function app(routes, title) {
+var app = function app(routes, def, title, analyticsId) {
+    var router = hashrouter(routes, def);
     return function () {
-        return mount(hashrouter(routes), page(title), qs('html', document));
+        return mount(page(router, title, analyticsId), qs('html', document));
     };
 };
 

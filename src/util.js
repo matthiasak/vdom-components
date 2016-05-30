@@ -58,14 +58,7 @@ const trackVisibility = component => {
  * into a markdeep/markdown rendered section
 */
 
-const getMarkdeep = () => {
-    global.markdeepOptions = {mode:'script'}
-    require('./markdeep')
-    const markdeep = global.markdeep
-    return (content) => markdeep.format(content)
-}
-
-const markdown = (content, markdownToHtml) => {
+const markdown = (content, markdownToHtml=(c => global.markdeep.format(c))) => {
     const config = (element, init) => {
         element.innerHTML = markdownToHtml(content)
     }
@@ -152,11 +145,11 @@ const hashrouter = (
 /**
  * page component that returns an entire html component
  */
-const page = (router, title, css='/styles.css', googleAnalyticsId) => [
+const page = (router, title, css='/style.css', googleAnalyticsId) => [
     head.head(
         head.theme(),
         head.mobile_metas(title),
-        m('link', {rel:'stylesheet', href:css}),
+        m('link', {type:'text/css', rel:'stylesheet', href:css}),
         googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)
     ),
     m('body', router)
@@ -165,8 +158,9 @@ const page = (router, title, css='/styles.css', googleAnalyticsId) => [
 /**
  * mount the entire page() component to the DOM
  */
-const app = (routes, title) => {
-    return () => mount(hashrouter(routes), page(title), qs('html', document))
+const app = (routes, def, title, analyticsId) => {
+    const router = hashrouter(routes, def)
+    return () => mount(page(router, title, analyticsId), qs('html', document))
 }
 
 export {

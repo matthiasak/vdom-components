@@ -40,7 +40,7 @@ const mobile_metas = (title='', img='icon', manifest='manifest') => [
 /**
  * Google Analytics
  */
-const googleAnalytics = (id) => {
+const googleAnalytics = id => {
     const x = () => {
         window.ga = window.ga || function(){
             window.ga.q = (window.ga.q || []).push(arguments)

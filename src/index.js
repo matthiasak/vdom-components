@@ -1,3 +1,3 @@
-import * as head from 'head'
-
-export {head}
+import * as head from './head'
+import * as util from './util'
+export {head, util}
