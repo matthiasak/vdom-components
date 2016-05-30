@@ -1,6 +1,6 @@
 {
   "name": "universal-utils-vdom-components",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "vdom components library for universal-utils' vdom library (mithril-like API)",
   "main": "dist/index.js",
   "scripts": {
