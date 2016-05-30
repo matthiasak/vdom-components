@@ -223,8 +223,9 @@ var page = function page(router, title) {
  */
 var app = function app(routes, def, title, analyticsId) {
     var router = hashrouter(routes, def);
+    var p = page(router, title, analyticsId);
     return function () {
-        return mount(page(router, title, analyticsId), qs('html', document));
+        return mount(p, qs('html', document));
     };
 };
 

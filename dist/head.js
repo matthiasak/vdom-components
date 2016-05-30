@@ -24,7 +24,9 @@ var head = function head() {
         c[_key] = arguments[_key];
     }
 
-    return m('head', c);
+    return m('head', { shouldUpdate: function shouldUpdate(_) {
+            return false;
+        } }, c);
 };
 
 // More info: https://developer.chrome.com/multidevice/android/installtohomescreen

@@ -160,7 +160,8 @@ const page = (router, title, css='/style.css', googleAnalyticsId) => [
  */
 const app = (routes, def, title, analyticsId) => {
     const router = hashrouter(routes, def)
-    return () => mount(page(router, title, analyticsId), qs('html', document))
+    const p = page(router, title, analyticsId)
+    return () => mount(p, qs('html', document))
 }
 
 export {

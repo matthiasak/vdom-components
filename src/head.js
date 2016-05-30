@@ -4,7 +4,7 @@ import {vdom} from 'universal-utils'
 const {debounce,m,html,rAF,mount,update,qs,container} = vdom
 
 const head = (...c) =>
-    m('head', c)
+    m('head', {shouldUpdate: _ => false}, c)
 
 // More info: https://developer.chrome.com/multidevice/android/installtohomescreen
 const theme = (color='black') => [
