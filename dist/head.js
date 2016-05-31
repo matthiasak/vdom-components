@@ -24,8 +24,12 @@ var head = function head() {
         c[_key] = arguments[_key];
     }
 
-    return m('head', { shouldUpdate: function shouldUpdate(_) {
-            return false;
+    var loaded_once = false;
+    var config = function config(el) {
+        return loaded_once = true;
+    };
+    return m('head', { config: config, shouldUpdate: function shouldUpdate(_) {
+            return !loaded_once;
         } }, c);
 };
 
