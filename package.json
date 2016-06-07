@@ -16,7 +16,7 @@
       "stage-0"
     ]
   },
-  "dependencies": {
+  "peerDependencies": {
     "universal-utils": "1.x"
   },
   "devDependencies": {

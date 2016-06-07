@@ -6,7 +6,7 @@ const {debounce,m,html,rAF,mount,update,qs,container} = vdom
 const head = (...c) => {
     let loaded_once = false
     const config = el => loaded_once = true
-    return m('head', {config, shouldUpdate: _ => !loaded_once}, c)
+    return m('head', {config, shouldUpdate: el => !el}, c)
 }
 
 // More info: https://developer.chrome.com/multidevice/android/installtohomescreen

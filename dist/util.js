@@ -212,18 +212,18 @@ var hashrouter = function hashrouter() {
 /**
  * page component that returns an entire html component
  */
-var page = function page(router, title) {
+var page = function page(main, title) {
     var css = arguments.length <= 2 || arguments[2] === undefined ? '/style.css' : arguments[2];
     var googleAnalyticsId = arguments[3];
-    return [head.head(head.theme(), head.mobile_metas(title), m('link', { type: 'text/css', rel: 'stylesheet', href: css }), googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)), m('body', router)];
+    return [head.head(head.theme(), head.mobile_metas(title), m('link', { type: 'text/css', rel: 'stylesheet', href: css }), googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)), m('body', main)];
 };
 
 /**
  * mount the entire page() component to the DOM
  */
-var app = function app(routes, def, title, analyticsId) {
+var app = function app(routes, def, title, css, analyticsId) {
     var router = hashrouter(routes, def);
-    var p = page(router, title, analyticsId);
+    var p = page(router, title, css, analyticsId);
     return function () {
         return mount(p, qs('html', document));
     };

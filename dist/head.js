@@ -28,8 +28,8 @@ var head = function head() {
     var config = function config(el) {
         return loaded_once = true;
     };
-    return m('head', { config: config, shouldUpdate: function shouldUpdate(_) {
-            return !loaded_once;
+    return m('head', { config: config, shouldUpdate: function shouldUpdate(el) {
+            return !el;
         } }, c);
 };
 

@@ -145,22 +145,22 @@ const hashrouter = (
 /**
  * page component that returns an entire html component
  */
-const page = (router, title, css='/style.css', googleAnalyticsId) => [
+const page = (main, title, css='/style.css', googleAnalyticsId) => [
     head.head(
         head.theme(),
         head.mobile_metas(title),
         m('link', {type:'text/css', rel:'stylesheet', href:css}),
         googleAnalyticsId && head.googleAnalytics(googleAnalyticsId)
     ),
-    m('body', router)
+    m('body', main)
 ]
 
 /**
  * mount the entire page() component to the DOM
  */
-const app = (routes, def, title, analyticsId) => {
+const app = (routes, def, title, css, analyticsId) => {
     const router = hashrouter(routes, def)
-    const p = page(router, title, analyticsId)
+    const p = page(router, title, css, analyticsId)
     return () => mount(p, qs('html', document))
 }
 
